@@ -1,106 +1,81 @@
 import { createSignal } from 'solid-js'
-import solidLogo from './assets/solid.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
 import './App.css'
+import TextureDropdown from './components/texture-dropdown'
 
 function App() {
-  const [count, setCount] = createSignal(0)
+    const [count, setCount] = createSignal(0)
 
-  return (
-    <>
-      <section id="center">
-        <div class="hero">
-          <img src={heroImg} class="base" width="170" height="179" alt="" />
-          <img src={solidLogo} class="framework" alt="Solid logo" />
-          <img src={viteLogo} class="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          class="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count()}
-        </button>
-      </section>
+    return (
+        <>
+            <div class="background" style={
+                {
+                    "position": "absolute",
+                    "background-color": "#121317",
+                    "width": "100vw",
+                    "height": "100vh",
+                    "z-index": -1,
+                }
+            }>
 
-      <div class="ticks"></div>
+            </div>
+            <div class="topbar" style={
+                {
+                    "background-color": "#16171d",
+                    "width": "100vw",
+                    "height": "10vh",
+                }
+            }>
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg class="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img class="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://solidjs.com/" target="_blank">
-                <img class="button-icon" src={solidLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg class="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg class="button-icon" role="presentation" aria-hidden="true">
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg class="button-icon" role="presentation" aria-hidden="true">
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg class="button-icon" role="presentation" aria-hidden="true">
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg class="button-icon" role="presentation" aria-hidden="true">
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+            </div>
+            <div class="sidebar" style={
+                {
+                    "display": "flex",
+                    "background-color": "#110d17",
+                    "width": "20vw",
+                    "height": "90vh",
+                    "justify-content": "center",
+                    "align-items": "center",
+                }
+            }>
+                <div class="items" style={
+                    {
+                        "display": "flex",
+                        "flex-direction": "column",
+                        "background-color": "#15101d",
+                        "width": "90%",
+                        "height": "95%",
+                    }
+                }>
+                    <h2 class="textures" style={
+                        {
+                            "background-color": "#1c1717",
+                            "width": "100%",
+                            "height": "8%",
+                            "color": "#ffffff",
+                            "text-align": "center"
+                        }
+                    }>
+                        Textures
+                    </h2>
+                    
 
-      <div class="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+                    <div style={
+                        {
+                            "background-color": "#151111",
+                            "width": "100%",
+                            "height": "92%",
+                        }
+                    }>
+                        <TextureDropdown catagory="Accessories"/>
+                        <TextureDropdown catagory="Armor"/>
+                        <TextureDropdown catagory="Misc"/>
+                        <TextureDropdown catagory="Tools"/>
+                        <TextureDropdown catagory="UI"/>
+                        <TextureDropdown catagory="Weapons"/>
+                    </div>
+                </div>
+            </div>
+        </>
+    )
 }
-
 export default App
