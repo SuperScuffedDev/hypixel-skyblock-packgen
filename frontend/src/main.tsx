@@ -1,12 +1,14 @@
 /* @refresh reload */
 import { render } from 'solid-js/web'
-import { Route, Router } from '@solidjs/router'
-import App from './App.tsx'
-import Home from './pages/Home.tsx';
-import Editor from './pages/Editor.tsx';
-import NotFound from './pages/NotFound.tsx';
+import { lazy } from 'solid-js';
+import { Route, Router } from '@solidjs/router';
+import App from './App.tsx';
 
-const root = document.getElementById('root')
+const Home = lazy(() => import('./pages/Home.tsx'));
+const Editor = lazy(() => import('./pages/Editor.tsx'));
+const NotFound = lazy(() => import('./pages/NotFound.tsx'));
+
+const root = document.getElementById('root');
 
 render(
     () => (

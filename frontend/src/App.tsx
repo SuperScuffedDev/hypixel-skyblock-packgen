@@ -1,7 +1,6 @@
-import { A } from '@solidjs/router'
 import './App.css'
 
-function App() {
+function App(props: any) {
     return (
         <>
             <div class='header'>
@@ -10,10 +9,7 @@ function App() {
                 </div>
             </div>
             <div class='divider'></div>
-            <nav>
-                <A href='/'>home</A>
-                <A href='editor'>editor</A>
-            </nav>
+            {props.children}
         </>
     )
 }
