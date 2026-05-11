@@ -17,6 +17,8 @@ function endDrag() {
 type Props = {
     color: any;
     setColor: any;
+    tool: () => string;
+    setTool: any; 
 }
 
 function Canvas(props: Props) {
@@ -52,8 +54,8 @@ function Canvas(props: Props) {
                     (e) => {
                         switch (e.button) {
                             case 0:
-                                enableTool()
-                                useTool(e, props.color)
+                                enableTool(props.color())
+                                useTool(e, props)
                                 break;
                         }
                     }
@@ -63,7 +65,11 @@ function Canvas(props: Props) {
                     }
                 } onMouseMove={
                     (e) => {
-                        useTool(e, props.color())
+                        useTool(e, props)
+                    }
+                } onMouseLeave={
+                    (e) => {
+                        disableTool()
                     }
                 }>
 
@@ -75,18 +81,18 @@ function Canvas(props: Props) {
 
 var toolEnabled = false
 
-function enableTool() {
+function enableTool(color: string) {
+    ctx.fillStyle = color;
     toolEnabled = true
 }
 function disableTool() {
     toolEnabled = false
 }
 
-function useTool(e: MouseEvent, color: string) {
+function useTool(e: MouseEvent, props: {tool: () => string}) {
     if (!toolEnabled) {
         return
     }
-    ctx.fillStyle = color;
     
     const rect = canvasRef.getBoundingClientRect();
     const scaleX = canvasRef.width / rect.width;
@@ -95,12 +101,22 @@ function useTool(e: MouseEvent, color: string) {
     const canvasX = (e.clientX - rect.left) * scaleX;
     const canvasY = (e.clientY - rect.top) * scaleY;
 
-    console.log(`${Math.floor(canvasX)}, ${Math.floor(canvasY)}`)
-    ctx.fillRect(
-        Math.floor(canvasX),
-        Math.floor(canvasY),
-        1,1
-    );
+    switch (props.tool()) {
+        case "brush":
+            ctx.fillRect(
+                Math.floor(canvasX),
+                Math.floor(canvasY),
+                1,1
+            );
+            break;
+        case "erase":
+            ctx.clearRect(
+                Math.floor(canvasX),
+                Math.floor(canvasY),
+                1,1
+            );
+            break;
+    }
 }
 
 export default Canvas

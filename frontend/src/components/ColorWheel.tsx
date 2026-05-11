@@ -5,8 +5,12 @@ import { createSignal, onCleanup, onMount } from "solid-js"
 import color_picker_icon from "../assets/images/color-picker.svg"
 
 type Props = {
-    color: any;
+    color: () => string;
     setColor: any;
+    tool: () => string;
+    setTool: any; 
+    buttonActiveColor: string;
+    buttonInactiveColor: string;
 }
 
 function ColorWheel(props: Props) {
@@ -43,7 +47,15 @@ function ColorWheel(props: Props) {
                         "background-color": props.color()
                     }
                 }></div>
-                <button class="color-picker">
+                <button class="color-picker" style={
+                    {
+                        "background-color": props.tool() === "color-picker" ? props.buttonActiveColor : props.buttonInactiveColor
+                    }
+                } onClick={
+                    (e) => {
+                        props.setTool(props.tool() === "color-picker" ? "none" : "color-picker")
+                    }
+                }>
                     <img src={color_picker_icon} width="32px" height="32px"></img>
                 </button>
                 <button></button>
