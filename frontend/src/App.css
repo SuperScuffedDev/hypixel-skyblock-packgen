@@ -133,6 +133,11 @@ span.divider {
     margin-bottom: 8px;
 }
 
+.texture-options > button {
+    padding: 8px;
+    border-radius: 8px;
+}
+
 #color-wheel {
     display: flex;
     width: 100%;
@@ -166,7 +171,7 @@ span.divider {
 }
 
 .canvas-container {
-    background-color: #dadadaff;
+    background-color: #dadada;
     display: grid;
     place-items: center;
     width: 100%;
@@ -174,7 +179,14 @@ span.divider {
 }
 
 #canvas {
-    background-color: #ffffff;
+    background-color: transparent;
+    background-image:
+        linear-gradient(45deg, #ccc 25%, transparent 25%), 
+        linear-gradient(-45deg, #ccc 25%, transparent 25%), 
+        linear-gradient(45deg, transparent 75%, #ccc 75%), 
+        linear-gradient(-45deg, transparent 75%, #ccc 75%);; 
+    background-size: 20px 20px;
+    background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
     height: 90%;
     aspect-ratio: 1 / 1;
 

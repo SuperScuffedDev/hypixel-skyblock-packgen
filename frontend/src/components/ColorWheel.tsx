@@ -1,8 +1,10 @@
 import "reinvented-color-wheel/css/reinvented-color-wheel.min.css"
 import ReinventedColorWheel from "reinvented-color-wheel";
-import { createSignal, onCleanup, onMount } from "solid-js"
+import { onCleanup, onMount } from "solid-js"
 
 import color_picker_icon from "../assets/images/color-picker.svg"
+
+var colorWheel: any;
 
 type Props = {
     color: () => string;
@@ -15,21 +17,20 @@ type Props = {
 
 function ColorWheel(props: Props) {
     var containerRef!: HTMLDivElement;
-    var colorWheel;
 
     onMount(
         () => {
             colorWheel = new ReinventedColorWheel(
                 {
                     appendTo: containerRef,
-                    hex: props.color(),
+                    rgb: [255, 0, 0],
                     wheelDiameter: 300,
                     wheelThickness: 30,
                     handleDiameter: 24,
                     wheelReflectsSaturation: false,
 
                     onChange: function(color) {
-                        props.setColor(color.hex)
+                        props.setColor(color.rgb)
                     }
                 }
             )
@@ -44,7 +45,7 @@ function ColorWheel(props: Props) {
             <div class="color-configs">
                 <div class="current-color" style={
                     {
-                        "background-color": props.color()
+                        "background-color": `rgb(${props.color()[0]},${props.color()[1]},${props.color()[2]})`
                     }
                 }></div>
                 <button class="color-picker" style={
@@ -52,7 +53,7 @@ function ColorWheel(props: Props) {
                         "background-color": props.tool() === "color-picker" ? props.buttonActiveColor : props.buttonInactiveColor
                     }
                 } onClick={
-                    (e) => {
+                    () => {
                         props.setTool(props.tool() === "color-picker" ? "none" : "color-picker")
                     }
                 }>
@@ -65,3 +66,4 @@ function ColorWheel(props: Props) {
 }
 
 export default ColorWheel
+export { colorWheel }

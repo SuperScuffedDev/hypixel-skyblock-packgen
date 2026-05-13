@@ -1,21 +1,12 @@
-import { createSignal, onCleanup, onMount } from "solid-js"
+import { onCleanup, onMount } from "solid-js"
+import { arrayIsEqual } from "../utils/Compare";
+import { colorWheel } from "./ColorWheel";
 
 var canvasRef!: HTMLCanvasElement;
-var dragging = false;
 var ctx: CanvasRenderingContext2D;
 
-function dragHandler(e: MouseEvent) {
-    dragging = true
-}
-
-function endDrag() {
-    if (dragging) {
-        dragging = false
-    }
-};
-
 type Props = {
-    color: any;
+    color: () => number[];
     setColor: any;
     tool: () => string;
     setTool: any; 
@@ -33,23 +24,7 @@ function Canvas(props: Props) {
 
     return (
         <>
-            <div class="canvas-container" onMouseDown={
-                (e) => {
-                    switch (e.button) {
-                        case 1:
-                            dragHandler(e)
-                            break;
-                    }
-                }
-            } onMouseUp={
-                (e) => {
-                    switch (e.button) {
-                        case 1:
-                            endDrag()
-                            break;
-                    }
-                }
-            }>
+            <div class="canvas-container">
                 <canvas id="canvas" width={16} height={16} ref={canvasRef} onMouseDown={
                     (e) => {
                         switch (e.button) {
@@ -60,7 +35,7 @@ function Canvas(props: Props) {
                         }
                     }
                 } onMouseUp={
-                    (e) => {
+                    () => {
                         disableTool()
                     }
                 } onMouseMove={
@@ -68,7 +43,7 @@ function Canvas(props: Props) {
                         useTool(e, props)
                     }
                 } onMouseLeave={
-                    (e) => {
+                    () => {
                         disableTool()
                     }
                 }>
@@ -81,15 +56,79 @@ function Canvas(props: Props) {
 
 var toolEnabled = false
 
-function enableTool(color: string) {
-    ctx.fillStyle = color;
+function enableTool(color: number[]) {
+    ctx.fillStyle = `rgb(${color[0]},${color[1]},${color[2]})`;
     toolEnabled = true
 }
 function disableTool() {
     toolEnabled = false
 }
 
-function useTool(e: MouseEvent, props: {tool: () => string}) {
+type RGBA = {r: number, g: number, b: number, a: number}
+
+function floodFill(start: {x: number, y: number}, target: RGBA) {
+    const width = canvasRef.width
+    const height = canvasRef.height
+    const stringTarget = JSON.stringify(target)
+
+    function checkInBounds(nodePos: number[]) {
+        if (
+            nodePos[0] + 1 > width ||
+            nodePos[0] < 0 ||
+            nodePos[1] + 1 > height ||
+            nodePos[1] < 0
+        ) {
+            return false
+        }
+        return true
+    }
+
+    function flood(nodePos: {x: number, y: number}) {
+        var nodes = [
+                [nodePos.x, nodePos.y + 1,],
+                [nodePos.x, nodePos.y - 1,],
+                [nodePos.x - 1, nodePos.y],
+                [nodePos.x + 1, nodePos.y]
+        ]
+
+        for (let node of nodes) {
+            if (!checkInBounds(node)) {
+                continue
+            }
+            const imgData = ctx.getImageData(
+                node[0],
+                node[1],
+                1,1
+            )
+            const pixel = imgData.data
+            const rgba: RGBA = {
+                r: pixel[0],
+                g: pixel[1],
+                b: pixel[2],
+                a: pixel[3],
+            }
+            
+            if (JSON.stringify(rgba) === stringTarget) {
+                ctx.fillRect(
+                    node[0],
+                    node[1],
+                    1,1
+                );
+
+                flood({x: node[0], y: node[1]})
+            }
+        }
+        return
+    }
+    ctx.fillRect(
+        start.x,
+        start.y,
+        1,1
+    );
+    flood(start)
+}
+
+function useTool(e: MouseEvent, props: Props) {
     if (!toolEnabled) {
         return
     }
@@ -100,21 +139,56 @@ function useTool(e: MouseEvent, props: {tool: () => string}) {
 
     const canvasX = (e.clientX - rect.left) * scaleX;
     const canvasY = (e.clientY - rect.top) * scaleY;
+    const floorX = Math.floor(canvasX)
+    const floorY = Math.floor(canvasY)
+    const imgData = ctx.getImageData(
+        floorX,
+        floorY,
+        1,1
+    )
+    const pixel = imgData.data
+    const rgba = {
+        r: pixel[0],
+        g: pixel[1],
+        b: pixel[2],
+        a: pixel[3],
+    }
 
     switch (props.tool()) {
+        case "color-picker":
+            if (rgba.a === 0) {
+                return
+            }
+            colorWheel.rgb = [rgba.r, rgba.g, rgba.b];
+            colorWheel.redraw();
+            props.setTool("brush")
+            break;
         case "brush":
             ctx.fillRect(
-                Math.floor(canvasX),
-                Math.floor(canvasY),
+                floorX,
+                floorY,
                 1,1
             );
             break;
         case "erase":
             ctx.clearRect(
-                Math.floor(canvasX),
-                Math.floor(canvasY),
+                floorX,
+                floorY,
                 1,1
             );
+            break;
+        case "fill":
+            if (arrayIsEqual([rgba.r, rgba.g, rgba.b], props.color())) {
+                return
+            }
+
+            floodFill(
+                {
+                    x: floorX,
+                    y: floorY,
+                }, 
+                rgba
+            )
             break;
     }
 }

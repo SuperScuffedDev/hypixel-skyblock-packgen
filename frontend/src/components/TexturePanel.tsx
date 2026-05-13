@@ -1,3 +1,5 @@
+var canvas
+
 type Props = {}
 
 function TexturePanel(props: Props) {
@@ -24,7 +26,29 @@ function TexturePanel(props: Props) {
             </select>
         </div>
         <div class="texture-list"></div>
-        <div class="texture-options"></div>
+        <div class="texture-options">
+            <button class="upload" onClick={
+                (e) => {
+                    
+                }
+            }>
+                upload
+            </button>
+            <button class="download" onClick={
+                (e) => {
+                    canvas = document.getElementById("canvas") as HTMLCanvasElement;
+                    const imgURL = canvas.toDataURL("image/png");
+                    const link = document.createElement("a");
+                    link.href = imgURL
+                    link.download = "texture.png"
+
+                    link.click()
+                    link.remove()
+                }
+            }>
+                download
+            </button>
+        </div>
         </>
     )
 }

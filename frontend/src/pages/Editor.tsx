@@ -9,7 +9,7 @@ var buttonInactiveColor = "#ffb7b7";
 type Props = {}
 
 function Editor(props: Props) {
-    const [color, setColor] = createSignal("#ff0000");
+    const [color, setColor] = createSignal([255,0,0]);
     const [tool, setTool] = createSignal("brush")
 
     return (
