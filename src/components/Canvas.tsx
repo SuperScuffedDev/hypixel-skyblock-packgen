@@ -25,7 +25,7 @@ function Canvas(props: Props) {
     return (
         <>
             <div class="canvas-container">
-                <canvas id="canvas" width={16} height={16} ref={canvasRef} onMouseDown={
+                <canvas id="canvas" width={16} height={16} ref={canvasRef} draggable={false} onMouseDown={
                     (e) => {
                         switch (e.button) {
                             case 0:
