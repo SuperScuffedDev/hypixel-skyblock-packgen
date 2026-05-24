@@ -5,6 +5,8 @@ import { colorWheel } from "./ColorWheel";
 var canvasRef!: HTMLCanvasElement;
 var ctx: CanvasRenderingContext2D;
 
+var currentImage: CanvasImageData
+
 type Props = {
     color: () => number[];
     setColor: any;
@@ -12,11 +14,14 @@ type Props = {
     setTool: any; 
 }
 
-function Canvas(props: Props) {
+function viewport(props: Props) {
     onMount(
         () => {
             ctx = canvasRef.getContext("2d") as CanvasRenderingContext2D;
             ctx.imageSmoothingEnabled = false
+            if (currentImage) {
+                ctx.putImageData(currentImage, 0,0)
+            }
         }
     );
 
@@ -132,7 +137,9 @@ function useTool(e: MouseEvent, props: Props) {
     if (!toolEnabled) {
         return
     }
-    
+
+    currentImage = ctx.getImageData(0,0, canvasRef.width, canvasRef.height)
+
     const rect = canvasRef.getBoundingClientRect();
     const scaleX = canvasRef.width / rect.width;
     const scaleY = canvasRef.height / rect.height;
@@ -193,4 +200,4 @@ function useTool(e: MouseEvent, props: Props) {
     }
 }
 
-export default Canvas
+export default viewport

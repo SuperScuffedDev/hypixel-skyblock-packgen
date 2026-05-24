@@ -11,11 +11,47 @@ type Props = {
     setTool: any; 
     buttonActiveColor: any;
     buttonInactiveColor: any;
+    viewport: () => string;
+    setViewport: any; 
 }
 
 function EditorTools(props: Props) {
     return (
         <>
+            <div style={
+                {
+                    "width": "100%",
+                    "height": "64px",
+                    "margin-bottom": "8px",
+                    "padding": "8px",
+                    "display": "flex",
+                    "justify-content": "space-evenly",
+                    "gap": "8px"
+                }
+            }>
+                <button style={
+                    {
+                        "flex": 1,
+                        "border-radius": "8px",
+                        "background-color": props.viewport() === "2d" ? props.buttonActiveColor : props.buttonInactiveColor
+                    }
+                } onClick={
+                    (e) => {
+                        props.setViewport(props.tool() === "2d" ? "none" : "2d")
+                    }
+                }>Texture</button>
+                <button style={
+                    {
+                        "flex": 1,
+                        "border-radius": "8px",
+                        "background-color": props.viewport() === "3d" ? props.buttonActiveColor : props.buttonInactiveColor
+                    }
+                } onClick={
+                    (e) => {
+                        props.setViewport(props.tool() === "3d" ? "none" : "3d")
+                    }
+                }>Model</button>
+            </div>
             <ColorWheel
                 color={props.color}
                 setColor={props.setColor}

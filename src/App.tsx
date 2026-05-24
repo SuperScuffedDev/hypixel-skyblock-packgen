@@ -1,11 +1,13 @@
 import './App.css'
+import logo from "./assets/images/logo.png"
+import { createSignal } from "solid-js";
 
 function App(props: any) {
     return (
         <>
             <div class='header'>
                 <div>
-                    <img id='logo' src='../../assets/logo.png' width='374' height='65'></img>
+                    <img id='logo' src={logo} height='65'></img>
                 </div>
             </div>
             <div class='divider'></div>
