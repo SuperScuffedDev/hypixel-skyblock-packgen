@@ -1,11 +1,10 @@
 import { onCleanup, onMount } from "solid-js"
 import { arrayIsEqual } from "../utils/Compare";
 import { colorWheel } from "./ColorWheel";
+import { canvasState, setCanvasState } from "../utils/canvas_state";
 
 var canvasRef!: HTMLCanvasElement;
 var ctx: CanvasRenderingContext2D;
-
-var currentImage: CanvasImageData
 
 type Props = {
     color: () => number[];
@@ -19,8 +18,8 @@ function viewport(props: Props) {
         () => {
             ctx = canvasRef.getContext("2d") as CanvasRenderingContext2D;
             ctx.imageSmoothingEnabled = false
-            if (currentImage) {
-                ctx.putImageData(currentImage, 0,0)
+            if (canvasState) {
+                ctx.putImageData(canvasState, 0,0)
             }
         }
     );
@@ -30,7 +29,7 @@ function viewport(props: Props) {
     return (
         <>
             <div class="canvas-container">
-                <canvas id="canvas" width={16} height={16} ref={canvasRef} draggable={false} onMouseDown={
+                <canvas id="canvas" width={48} height={64} ref={canvasRef} draggable={false} onMouseDown={
                     (e) => {
                         switch (e.button) {
                             case 0:
@@ -50,6 +49,10 @@ function viewport(props: Props) {
                 } onMouseLeave={
                     () => {
                         disableTool()
+                    }
+                } style={
+                    {
+                        "aspect-ratio": canvasRef.width / canvasRef.height
                     }
                 }>
 
@@ -138,7 +141,7 @@ function useTool(e: MouseEvent, props: Props) {
         return
     }
 
-    currentImage = ctx.getImageData(0,0, canvasRef.width, canvasRef.height)
+    setCanvasState(ctx.getImageData(0,0, canvasRef.width, canvasRef.height))
 
     const rect = canvasRef.getBoundingClientRect();
     const scaleX = canvasRef.width / rect.width;
