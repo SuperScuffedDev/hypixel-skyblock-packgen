@@ -29,7 +29,7 @@ function viewport(props: Props) {
     return (
         <>
             <div class="canvas-container">
-                <canvas id="canvas" width={48} height={64} ref={canvasRef} draggable={false} onMouseDown={
+                <canvas id="canvas" width={64} height={64} ref={canvasRef} draggable={false} onMouseDown={
                     (e) => {
                         switch (e.button) {
                             case 0:
