@@ -224,8 +224,8 @@ export function chestplateModel(scene: THREE.Scene, canvas: HTMLCanvasElement) {
                 "uY": 0.5,
             }, // top
             {
-                "uX": 0.3125,
-                "uY": 0,
+                "uX": 0.5,
+                "uY": 0.375,
             }, // bottom
             {
                 "uX": 0.3125,
