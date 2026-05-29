@@ -1,10 +1,6 @@
 import { getItemData } from "../api/item-data"
-import { createResource, For, Suspense } from "solid-js"
-import { setCanvasState } from "../utils/canvas_state";
-
-var canvas
-
-type Props = {}
+import { For, Suspense } from "solid-js"
+import { setHumanoidCanvas } from "../utils/state_manager";
 
 let categories = [
     "ALL",
@@ -65,14 +61,14 @@ var items = [
 
 getItemData()
 
-function TexturePanel(props: Props) {
+function TexturePanel() {
     return (
         <>
         <div class="listing-options">
             <label for="texture-catagory">Catagory</label>
             <select id="texture-catagory">
                 <For each={categories}>
-                    {(item, index) =>
+                    {(item) =>
                         <option value={item}>{item.replace("_", " ")}</option>
                     }
                 </For>
@@ -92,7 +88,7 @@ function TexturePanel(props: Props) {
                 <div>Loading Items...</div>
             }>
                 <For each={items}>
-                    {(item, index) =>
+                    {(item) =>
                         <button classList={{
                             "listed-item": true
                         }}>{item}</button>
@@ -102,14 +98,15 @@ function TexturePanel(props: Props) {
         </div>
         <div class="texture-options">
             <button class="upload" onClick={
-                (e) => {
+                () => {
                     const canvas = document.getElementById("canvas") as HTMLCanvasElement;
-                    var ctx: CanvasRenderingContext2D = canvas.getContext("2d")!;
+                    const ctx: CanvasRenderingContext2D = canvas.getContext("2d")!;
                     const input = document.createElement("input");
                     input.type = "file";
                     input.onchange = (e) => {
-                        const files = e.target?.files;
-                        var reader = new FileReader();
+                        const target = e.target as HTMLInputElement
+                        const files: FileList | null = target.files;
+                        const reader = new FileReader();
                         if (!files) return
 
                         const img = files[0]
@@ -119,7 +116,7 @@ function TexturePanel(props: Props) {
                                 ctx.clearRect(0, 0, canvas.width, canvas.height)
                                 ctx.drawImage(img, 0, 0)
                                 const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height)
-                                setCanvasState(imageData)
+                                setHumanoidCanvas(imageData)
                             }
                             img.src = ee.target?.result as string;
                         }
@@ -132,7 +129,7 @@ function TexturePanel(props: Props) {
                 upload
             </button>
             <button class="download" onClick={
-                (e) => {
+                () => {
                     const canvas = document.getElementById("canvas") as HTMLCanvasElement;
                     const imgURL = canvas.toDataURL("image/png");
                     const link = document.createElement("a");

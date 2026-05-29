@@ -7,9 +7,7 @@ import TexturePanel from "../components/TexturePanel"
 var buttonActiveColor = "#b7ffc1";
 var buttonInactiveColor = "#ffb7b7";
 
-type Props = {}
-
-function Editor(props: Props) {
+function Editor() {
     const [color, setColor] = createSignal([255,0,0]);
     const [tool, setTool] = createSignal("brush");
     const [viewport, setViewport] = createSignal("2d");
