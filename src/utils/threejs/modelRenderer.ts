@@ -170,7 +170,7 @@ export function headModel(scene: THREE.Scene, canvas: HTMLCanvasElement) {
                 "uY": 0.75,
             }, // back
         ]
-        const geometry = new THREE.BoxGeometry(2.06, 2.06, 2.06);
+        const geometry = new THREE.BoxGeometry(2.15, 2.15, 2.15);
         const uvAttribute = geometry.attributes.uv;
 
         for (let i=0; i<6; i++) {
