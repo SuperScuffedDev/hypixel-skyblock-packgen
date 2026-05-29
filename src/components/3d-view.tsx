@@ -1,6 +1,6 @@
 import { onCleanup, onMount } from "solid-js";
 import { init } from "../utils/threejs/builder";
-import { chestplateModel, headModel, playerModel } from "../utils/threejs/modelRenderer"
+import { bootsModel, chestplateModel, headModel, playerModel } from "../utils/threejs/modelRenderer"
 
 var containerRef!: HTMLDivElement;
 
@@ -18,8 +18,9 @@ function viewport() {
                 ] = init(containerRef)
 
                 playerModel(scene)
-                headModel(scene, canvasHead)
+                headModel(scene, canvasHumanoid)
                 chestplateModel(scene, canvasHumanoid)
+                bootsModel(scene, canvasHumanoid)
            }
        );
    
