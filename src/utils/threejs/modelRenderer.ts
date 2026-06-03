@@ -60,11 +60,22 @@ export function headModel(scene: THREE.Scene, canvas: HTMLCanvasElement) {
 
     const uW = 0.125
     const uH = 0.25
-    const material = new THREE.MeshBasicMaterial(
+    const innerMaterial = new THREE.MeshBasicMaterial(
         {
             map: textureCanvas,
             transparent: true,
-            side: THREE.DoubleSide
+            side: THREE.DoubleSide,
+            depthWrite: true,
+            depthTest: true
+        }
+    );
+    const outerMaterial = new THREE.MeshBasicMaterial(
+        {
+            map: textureCanvas,
+            transparent: true,
+            side: THREE.DoubleSide,
+            depthWrite: false,
+            depthTest: true
         }
     );
 
@@ -99,7 +110,7 @@ export function headModel(scene: THREE.Scene, canvas: HTMLCanvasElement) {
     }
 
     function innerLayer() {
-        const atlasTiles = [
+        const atlasTiles: {"uX": number; "uY": number}[] = [
             {
                 "uX": 0.25,
                 "uY": 0.75,
@@ -138,13 +149,13 @@ export function headModel(scene: THREE.Scene, canvas: HTMLCanvasElement) {
         }
 
         uvAttribute.needsUpdate = true
-        const object = new THREE.Mesh( geometry, material );
+        const object = new THREE.Mesh( geometry, innerMaterial );
         object.position.set(headPosX, headPosY, headPosZ)
         scene.add( object );
     }
 
     function outerLayer() {
-        const atlasTiles = [
+        const atlasTiles: {"uX": number; "uY": number}[] = [
             {
                 "uX": 0.75,
                 "uY": 0.75,
@@ -182,12 +193,14 @@ export function headModel(scene: THREE.Scene, canvas: HTMLCanvasElement) {
         }
 
         uvAttribute.needsUpdate = true
-        const object = new THREE.Mesh( geometry, material );
+        const object = new THREE.Mesh( geometry, outerMaterial );
         object.position.set(headPosX, headPosY, headPosZ)
         scene.add( object );
     }
     innerLayer()
     outerLayer()
+
+    return textureCanvas
 }
 
 // export function headModel(scene: THREE.Scene, canvas: HTMLCanvasElement) {
@@ -340,12 +353,14 @@ export function chestplateModel(scene: THREE.Scene, canvas: HTMLCanvasElement) {
         {
             map: textureCanvas,
             transparent: true,
-            side: THREE.DoubleSide
+            side: THREE.DoubleSide,
+            depthWrite: false,
+            depthTest: true
         }
     );
 
     function torso() {
-        const atlasTiles = [
+        const atlasTiles: {"uX": number; "uY": number}[] = [
             {
                 "uX": 0.4375,
                 "uY": 0.375,
@@ -471,11 +486,12 @@ export function chestplateModel(scene: THREE.Scene, canvas: HTMLCanvasElement) {
         uvAttribute.needsUpdate = true
         const object = new THREE.Mesh( geometry, material );
         object.position.set(0, 0, 0)
+        object.renderOrder = 1
         scene.add( object );
     }
 
     function leftArm() {
-        const atlasTiles = [
+        const atlasTiles: {"uX": number; "uY": number}[] = [
             {
                 "uX": 0.6875,
                 "uY": 0.375,
@@ -601,11 +617,12 @@ export function chestplateModel(scene: THREE.Scene, canvas: HTMLCanvasElement) {
         uvAttribute.needsUpdate = true
         const object = new THREE.Mesh( geometry, material );
         object.position.set(1.5, 0, 0)
+        object.renderOrder = 2
         scene.add( object );
     }
 
     function rightArm() {
-        const atlasTiles = [
+        const atlasTiles: {"uX": number; "uY": number}[] = [
             {
                 "uX": 0.75,
                 "uY": 0.375,
@@ -731,14 +748,17 @@ export function chestplateModel(scene: THREE.Scene, canvas: HTMLCanvasElement) {
         uvAttribute.needsUpdate = true
         const object = new THREE.Mesh( geometry, material );
         object.position.set(-1.5, 0, 0)
+        object.renderOrder = 2
         scene.add( object );
     }
     torso()
     leftArm()
     rightArm()
+
+    return textureCanvas
 }
 export function bootsModel(scene: THREE.Scene, canvas: HTMLCanvasElement) {
-    const textureCanvas = new  THREE.CanvasTexture(canvas)
+    const textureCanvas = new THREE.CanvasTexture(canvas)
     textureCanvas.magFilter = THREE.NearestFilter
     textureCanvas.colorSpace = THREE.SRGBColorSpace;
 
@@ -748,12 +768,14 @@ export function bootsModel(scene: THREE.Scene, canvas: HTMLCanvasElement) {
         {
             map: textureCanvas,
             transparent: true,
-            side: THREE.DoubleSide
+            side: THREE.DoubleSide,
+            depthWrite: false,
+            depthTest: true
         }
     );
 
     function leftLeg() {
-        const atlasTiles = [
+        const atlasTiles: {"uX": number; "uY": number}[] = [
             {
                 "uX": 0.0625,
                 "uY": 0.375,
@@ -879,6 +901,7 @@ export function bootsModel(scene: THREE.Scene, canvas: HTMLCanvasElement) {
         uvAttribute.needsUpdate = true
         const object = new THREE.Mesh( geometry, material );
         object.position.set(0.5, -3, 0)
+        object.renderOrder = 1
         scene.add( object );
     }
 
@@ -1009,8 +1032,423 @@ export function bootsModel(scene: THREE.Scene, canvas: HTMLCanvasElement) {
         uvAttribute.needsUpdate = true
         const object = new THREE.Mesh( geometry, material );
         object.position.set(-0.5, -3, 0)
+        object.renderOrder = 1
         scene.add( object );
     }
     leftLeg()
     rightLeg()
+
+    return textureCanvas
+}
+
+export function leggingsModel(scene: THREE.Scene, canvas: HTMLCanvasElement) {
+    const textureCanvas = new THREE.CanvasTexture(canvas)
+    textureCanvas.magFilter = THREE.NearestFilter
+    textureCanvas.colorSpace = THREE.SRGBColorSpace;
+
+    const uW = 0.0625
+    const uH = 0.125
+    const material = new THREE.MeshBasicMaterial(
+        {
+            map: textureCanvas,
+            transparent: true,
+            side: THREE.DoubleSide,
+            depthWrite: true,
+            depthTest: true
+        }
+    );
+    function waist() {
+        const atlasTiles: {"uX": number; "uY": number}[] = [
+            {
+                "uX": 0.4375,
+                "uY": 0.375,
+            }, // left
+            {
+                "uX": 0.25,
+                "uY": 0.375,
+            }, // right
+            {
+                "uX": 0.3125,
+                "uY": 0.5,
+            }, // top
+            {
+                "uX": 0.4375,
+                "uY": 0.375,
+            }, // bottom
+            {
+                "uX": 0.3125,
+                "uY": 0.375,
+            }, // front
+            {
+                "uX": 0.5,
+                "uY": 0.375,
+            }, // back
+        ]
+
+        const geometry = new THREE.BoxGeometry(2.1, 3.1, 1.1);
+        const uvAttribute = geometry.attributes.uv;
+
+        function wrap() {
+            var index = 0
+            var vertexIndex = index * 4
+            //left
+            uvAttribute.setX(vertexIndex, atlasTiles[index]["uX"]);
+            uvAttribute.setY(vertexIndex, atlasTiles[index]["uY"]);
+
+            uvAttribute.setX(vertexIndex + 1, atlasTiles[index]["uX"] + uW);
+            uvAttribute.setY(vertexIndex + 1, atlasTiles[index]["uY"]);
+
+            uvAttribute.setX(vertexIndex + 2, atlasTiles[index]["uX"]);
+            uvAttribute.setY(vertexIndex + 2, atlasTiles[index]["uY"] - uH*3);
+
+            uvAttribute.setX(vertexIndex + 3, atlasTiles[index]["uX"] + uW);
+            uvAttribute.setY(vertexIndex + 3, atlasTiles[index]["uY"] - uH*3);
+
+            //right
+            var index = 1
+            var vertexIndex = index * 4
+            uvAttribute.setX(vertexIndex, atlasTiles[index]["uX"]);
+            uvAttribute.setY(vertexIndex, atlasTiles[index]["uY"]);
+
+            uvAttribute.setX(vertexIndex + 1, atlasTiles[index]["uX"] + uW);
+            uvAttribute.setY(vertexIndex + 1, atlasTiles[index]["uY"]);
+
+            uvAttribute.setX(vertexIndex + 2, atlasTiles[index]["uX"]);
+            uvAttribute.setY(vertexIndex + 2, atlasTiles[index]["uY"] - uH*3);
+
+            uvAttribute.setX(vertexIndex + 3, atlasTiles[index]["uX"] + uW);
+            uvAttribute.setY(vertexIndex + 3, atlasTiles[index]["uY"] - uH*3);
+
+            //top
+            var index = 2
+            var vertexIndex = index * 4
+            uvAttribute.setX(vertexIndex, atlasTiles[index]["uX"]);
+            uvAttribute.setY(vertexIndex, atlasTiles[index]["uY"]);
+
+            uvAttribute.setX(vertexIndex + 1, atlasTiles[index]["uX"] + uW*2);
+            uvAttribute.setY(vertexIndex + 1, atlasTiles[index]["uY"]);
+
+            uvAttribute.setX(vertexIndex + 2, atlasTiles[index]["uX"]);
+            uvAttribute.setY(vertexIndex + 2, atlasTiles[index]["uY"] - uH);
+
+            uvAttribute.setX(vertexIndex + 3, atlasTiles[index]["uX"] + uW*2);
+            uvAttribute.setY(vertexIndex + 3, atlasTiles[index]["uY"] - uH);
+
+            //no bottom
+            var index = 3
+            var vertexIndex = index * 4
+            uvAttribute.setX(vertexIndex, atlasTiles[index]["uX"]);
+            uvAttribute.setY(vertexIndex, atlasTiles[index]["uY"]);
+
+            uvAttribute.setX(vertexIndex + 1, atlasTiles[index]["uX"] + uW*2);
+            uvAttribute.setY(vertexIndex + 1, atlasTiles[index]["uY"]);
+
+            uvAttribute.setX(vertexIndex + 2, atlasTiles[index]["uX"]);
+            uvAttribute.setY(vertexIndex + 2, atlasTiles[index]["uY"] + uH);
+
+            uvAttribute.setX(vertexIndex + 3, atlasTiles[index]["uX"] + uW*2);
+            uvAttribute.setY(vertexIndex + 3, atlasTiles[index]["uY"] + uH);
+            
+            //front
+            var index = 4
+            var vertexIndex = index * 4
+            uvAttribute.setX(vertexIndex, atlasTiles[index]["uX"]);
+            uvAttribute.setY(vertexIndex, atlasTiles[index]["uY"]);
+
+            uvAttribute.setX(vertexIndex + 1, atlasTiles[index]["uX"] + uW*2);
+            uvAttribute.setY(vertexIndex + 1, atlasTiles[index]["uY"]);
+
+            uvAttribute.setX(vertexIndex + 2, atlasTiles[index]["uX"]);
+            uvAttribute.setY(vertexIndex + 2, atlasTiles[index]["uY"] - uH*3);
+
+            uvAttribute.setX(vertexIndex + 3, atlasTiles[index]["uX"] + uW*2);
+            uvAttribute.setY(vertexIndex + 3, atlasTiles[index]["uY"] - uH*3);
+
+            //back
+            var index = 5
+            var vertexIndex = index * 4
+            uvAttribute.setX(vertexIndex, atlasTiles[index]["uX"]);
+            uvAttribute.setY(vertexIndex, atlasTiles[index]["uY"]);
+
+            uvAttribute.setX(vertexIndex + 1, atlasTiles[index]["uX"] + uW*2);
+            uvAttribute.setY(vertexIndex + 1, atlasTiles[index]["uY"]);
+
+            uvAttribute.setX(vertexIndex + 2, atlasTiles[index]["uX"]);
+            uvAttribute.setY(vertexIndex + 2, atlasTiles[index]["uY"] - uH*3);
+
+            uvAttribute.setX(vertexIndex + 3, atlasTiles[index]["uX"] + uW*2);
+            uvAttribute.setY(vertexIndex + 3, atlasTiles[index]["uY"] - uH*3);
+        }
+        wrap()
+
+        uvAttribute.needsUpdate = true
+        const object = new THREE.Mesh( geometry, material );
+        object.position.set(0, 0, 0)
+        scene.add( object );
+    }
+
+    function leftLeg() {
+        const atlasTiles: {"uX": number; "uY": number}[] = [
+            {
+                "uX": 0.0625,
+                "uY": 0.375,
+            }, // left
+            {
+                "uX": 0.1875,
+                "uY": 0.375,
+            }, // right
+            {
+                "uX": 0.125,
+                "uY": 0.5,
+            }, // top
+            {
+                "uX": 0.1875,
+                "uY": 0.375,
+            }, // bottom
+            {
+                "uX": 0.125,
+                "uY": 0.375,
+            }, // front
+            {
+                "uX": 0.25,
+                "uY": 0.375,
+            }, // back
+        ]
+
+        const geometry = new THREE.BoxGeometry(1.1, 3.1, 1.1);
+        const uvAttribute = geometry.attributes.uv;
+
+        function wrap() {
+            var index = 0
+            var vertexIndex = index * 4
+            //left
+            uvAttribute.setX(vertexIndex, atlasTiles[index]["uX"]);
+            uvAttribute.setY(vertexIndex, atlasTiles[index]["uY"]);
+
+            uvAttribute.setX(vertexIndex + 1, atlasTiles[index]["uX"] - uW);
+            uvAttribute.setY(vertexIndex + 1, atlasTiles[index]["uY"]);
+
+            uvAttribute.setX(vertexIndex + 2, atlasTiles[index]["uX"]);
+            uvAttribute.setY(vertexIndex + 2, atlasTiles[index]["uY"] - uH*3);
+
+            uvAttribute.setX(vertexIndex + 3, atlasTiles[index]["uX"] - uW);
+            uvAttribute.setY(vertexIndex + 3, atlasTiles[index]["uY"] - uH*3);
+
+            //right
+            var index = 1
+            var vertexIndex = index * 4
+            uvAttribute.setX(vertexIndex, atlasTiles[index]["uX"]);
+            uvAttribute.setY(vertexIndex, atlasTiles[index]["uY"]);
+
+            uvAttribute.setX(vertexIndex + 1, atlasTiles[index]["uX"] - uW);
+            uvAttribute.setY(vertexIndex + 1, atlasTiles[index]["uY"]);
+
+            uvAttribute.setX(vertexIndex + 2, atlasTiles[index]["uX"]);
+            uvAttribute.setY(vertexIndex + 2, atlasTiles[index]["uY"] - uH*3);
+
+            uvAttribute.setX(vertexIndex + 3, atlasTiles[index]["uX"] - uW);
+            uvAttribute.setY(vertexIndex + 3, atlasTiles[index]["uY"] - uH*3);
+
+            //no top
+            var index = 2
+            var vertexIndex = index * 4
+            uvAttribute.setX(vertexIndex, atlasTiles[index]["uX"]);
+            uvAttribute.setY(vertexIndex, atlasTiles[index]["uY"]);
+
+            uvAttribute.setX(vertexIndex + 1, atlasTiles[index]["uX"] - uW);
+            uvAttribute.setY(vertexIndex + 1, atlasTiles[index]["uY"]);
+
+            uvAttribute.setX(vertexIndex + 2, atlasTiles[index]["uX"]);
+            uvAttribute.setY(vertexIndex + 2, atlasTiles[index]["uY"] - uH);
+
+            uvAttribute.setX(vertexIndex + 3, atlasTiles[index]["uX"] - uW);
+            uvAttribute.setY(vertexIndex + 3, atlasTiles[index]["uY"] - uH);
+
+            //bottom
+            var index = 3
+            var vertexIndex = index * 4
+            uvAttribute.setX(vertexIndex, atlasTiles[index]["uX"]);
+            uvAttribute.setY(vertexIndex, atlasTiles[index]["uY"]);
+
+            uvAttribute.setX(vertexIndex + 1, atlasTiles[index]["uX"] - uW);
+            uvAttribute.setY(vertexIndex + 1, atlasTiles[index]["uY"]);
+
+            uvAttribute.setX(vertexIndex + 2, atlasTiles[index]["uX"]);
+            uvAttribute.setY(vertexIndex + 2, atlasTiles[index]["uY"] + uH);
+
+            uvAttribute.setX(vertexIndex + 3, atlasTiles[index]["uX"] - uW);
+            uvAttribute.setY(vertexIndex + 3, atlasTiles[index]["uY"] + uH);
+            
+            //front
+            var index = 4
+            var vertexIndex = index * 4
+            uvAttribute.setX(vertexIndex, atlasTiles[index]["uX"]);
+            uvAttribute.setY(vertexIndex, atlasTiles[index]["uY"]);
+
+            uvAttribute.setX(vertexIndex + 1, atlasTiles[index]["uX"] - uW);
+            uvAttribute.setY(vertexIndex + 1, atlasTiles[index]["uY"]);
+
+            uvAttribute.setX(vertexIndex + 2, atlasTiles[index]["uX"]);
+            uvAttribute.setY(vertexIndex + 2, atlasTiles[index]["uY"] - uH*3);
+
+            uvAttribute.setX(vertexIndex + 3, atlasTiles[index]["uX"] - uW);
+            uvAttribute.setY(vertexIndex + 3, atlasTiles[index]["uY"] - uH*3);
+
+            //back
+            var index = 5
+            var vertexIndex = index * 4
+            uvAttribute.setX(vertexIndex, atlasTiles[index]["uX"]);
+            uvAttribute.setY(vertexIndex, atlasTiles[index]["uY"]);
+
+            uvAttribute.setX(vertexIndex + 1, atlasTiles[index]["uX"] - uW);
+            uvAttribute.setY(vertexIndex + 1, atlasTiles[index]["uY"]);
+
+            uvAttribute.setX(vertexIndex + 2, atlasTiles[index]["uX"]);
+            uvAttribute.setY(vertexIndex + 2, atlasTiles[index]["uY"] - uH*3);
+
+            uvAttribute.setX(vertexIndex + 3, atlasTiles[index]["uX"] - uW);
+            uvAttribute.setY(vertexIndex + 3, atlasTiles[index]["uY"] - uH*3);
+        }
+        wrap()
+
+        uvAttribute.needsUpdate = true
+        const object = new THREE.Mesh( geometry, material );
+        object.position.set(0.5, -3, 0)
+        scene.add( object );
+    }
+
+    function rightLeg() {
+        const atlasTiles = [
+            {
+                "uX": 0.125,
+                "uY": 0.375,
+            }, // left
+            {
+                "uX": 0,
+                "uY": 0.375,
+            }, // right
+            {
+                "uX": 0.0625,
+                "uY": 0.5,
+            }, // top
+            {
+                "uX": 0.125,
+                "uY": 0.375,
+            }, // bottom
+            {
+                "uX": 0.0625,
+                "uY": 0.375,
+            }, // front
+            {
+                "uX": 0.1875,
+                "uY": 0.375,
+            }, // back
+        ]
+
+        const geometry = new THREE.BoxGeometry(1.1, 3.1, 1.1);
+        const uvAttribute = geometry.attributes.uv;
+
+        function wrap() {
+            var index = 0
+            var vertexIndex = index * 4
+            //left
+            uvAttribute.setX(vertexIndex, atlasTiles[index]["uX"]);
+            uvAttribute.setY(vertexIndex, atlasTiles[index]["uY"]);
+
+            uvAttribute.setX(vertexIndex + 1, atlasTiles[index]["uX"] + uW);
+            uvAttribute.setY(vertexIndex + 1, atlasTiles[index]["uY"]);
+
+            uvAttribute.setX(vertexIndex + 2, atlasTiles[index]["uX"]);
+            uvAttribute.setY(vertexIndex + 2, atlasTiles[index]["uY"] - uH*3);
+
+            uvAttribute.setX(vertexIndex + 3, atlasTiles[index]["uX"] + uW);
+            uvAttribute.setY(vertexIndex + 3, atlasTiles[index]["uY"] - uH*3);
+
+            //right
+            var index = 1
+            var vertexIndex = index * 4
+            uvAttribute.setX(vertexIndex, atlasTiles[index]["uX"]);
+            uvAttribute.setY(vertexIndex, atlasTiles[index]["uY"]);
+
+            uvAttribute.setX(vertexIndex + 1, atlasTiles[index]["uX"] + uW);
+            uvAttribute.setY(vertexIndex + 1, atlasTiles[index]["uY"]);
+
+            uvAttribute.setX(vertexIndex + 2, atlasTiles[index]["uX"]);
+            uvAttribute.setY(vertexIndex + 2, atlasTiles[index]["uY"] - uH*3);
+
+            uvAttribute.setX(vertexIndex + 3, atlasTiles[index]["uX"] + uW);
+            uvAttribute.setY(vertexIndex + 3, atlasTiles[index]["uY"] - uH*3);
+
+            //top
+            var index = 2
+            var vertexIndex = index * 4
+            uvAttribute.setX(vertexIndex, atlasTiles[index]["uX"]);
+            uvAttribute.setY(vertexIndex, atlasTiles[index]["uY"]);
+
+            uvAttribute.setX(vertexIndex + 1, atlasTiles[index]["uX"] + uW);
+            uvAttribute.setY(vertexIndex + 1, atlasTiles[index]["uY"]);
+
+            uvAttribute.setX(vertexIndex + 2, atlasTiles[index]["uX"]);
+            uvAttribute.setY(vertexIndex + 2, atlasTiles[index]["uY"] - uH);
+
+            uvAttribute.setX(vertexIndex + 3, atlasTiles[index]["uX"] + uW);
+            uvAttribute.setY(vertexIndex + 3, atlasTiles[index]["uY"] - uH);
+
+            //no bottom
+            var index = 3
+            var vertexIndex = index * 4
+            uvAttribute.setX(vertexIndex, atlasTiles[index]["uX"]);
+            uvAttribute.setY(vertexIndex, atlasTiles[index]["uY"]);
+
+            uvAttribute.setX(vertexIndex + 1, atlasTiles[index]["uX"] + uW);
+            uvAttribute.setY(vertexIndex + 1, atlasTiles[index]["uY"]);
+
+            uvAttribute.setX(vertexIndex + 2, atlasTiles[index]["uX"]);
+            uvAttribute.setY(vertexIndex + 2, atlasTiles[index]["uY"] + uH);
+
+            uvAttribute.setX(vertexIndex + 3, atlasTiles[index]["uX"] + uW);
+            uvAttribute.setY(vertexIndex + 3, atlasTiles[index]["uY"] + uH);
+            
+            //front
+            var index = 4
+            var vertexIndex = index * 4
+            uvAttribute.setX(vertexIndex, atlasTiles[index]["uX"]);
+            uvAttribute.setY(vertexIndex, atlasTiles[index]["uY"]);
+
+            uvAttribute.setX(vertexIndex + 1, atlasTiles[index]["uX"] + uW);
+            uvAttribute.setY(vertexIndex + 1, atlasTiles[index]["uY"]);
+
+            uvAttribute.setX(vertexIndex + 2, atlasTiles[index]["uX"]);
+            uvAttribute.setY(vertexIndex + 2, atlasTiles[index]["uY"] - uH*3);
+
+            uvAttribute.setX(vertexIndex + 3, atlasTiles[index]["uX"] + uW);
+            uvAttribute.setY(vertexIndex + 3, atlasTiles[index]["uY"] - uH*3);
+
+            //back
+            var index = 5
+            var vertexIndex = index * 4
+            uvAttribute.setX(vertexIndex, atlasTiles[index]["uX"]);
+            uvAttribute.setY(vertexIndex, atlasTiles[index]["uY"]);
+
+            uvAttribute.setX(vertexIndex + 1, atlasTiles[index]["uX"] + uW);
+            uvAttribute.setY(vertexIndex + 1, atlasTiles[index]["uY"]);
+
+            uvAttribute.setX(vertexIndex + 2, atlasTiles[index]["uX"]);
+            uvAttribute.setY(vertexIndex + 2, atlasTiles[index]["uY"] - uH*3);
+
+            uvAttribute.setX(vertexIndex + 3, atlasTiles[index]["uX"] + uW);
+            uvAttribute.setY(vertexIndex + 3, atlasTiles[index]["uY"] - uH*3);
+        }
+        wrap()
+
+        uvAttribute.needsUpdate = true
+        const object = new THREE.Mesh( geometry, material );
+        object.position.set(-0.5, -3, 0)
+        scene.add( object );
+    }
+    waist()
+    leftLeg()
+    rightLeg()
+
+    return textureCanvas
 }

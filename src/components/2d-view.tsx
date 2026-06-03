@@ -1,7 +1,7 @@
 import { onCleanup, onMount } from "solid-js"
 import { arrayIsEqual } from "../utils/Compare";
 import { colorWheel } from "./ColorWheel";
-import { humanoidModel, setHumanoidCanvas } from "../utils/state_manager";
+import { humanoidImage, setHumanoidCanvas } from "../utils/state_manager";
 
 var canvasRef!: HTMLCanvasElement;
 var ctx: CanvasRenderingContext2D;
@@ -18,8 +18,8 @@ function viewport(props: Props) {
         () => {
             ctx = canvasRef.getContext("2d") as CanvasRenderingContext2D;
             ctx.imageSmoothingEnabled = false
-            if (humanoidModel) {
-                ctx.putImageData(humanoidModel, 0,0)
+            if (humanoidImage) {
+                ctx.putImageData(humanoidImage, 0,0)
             }
         }
     );
@@ -68,6 +68,7 @@ function enableTool(color: number[]) {
     ctx.fillStyle = `rgb(${color[0]},${color[1]},${color[2]})`;
     toolEnabled = true
 }
+
 function disableTool() {
     toolEnabled = false
 }

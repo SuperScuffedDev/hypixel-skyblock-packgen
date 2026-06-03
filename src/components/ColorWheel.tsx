@@ -3,6 +3,7 @@ import ReinventedColorWheel from "reinvented-color-wheel";
 import { onCleanup, onMount } from "solid-js"
 
 import color_picker_icon from "../assets/images/color-picker.svg"
+import { setColor, setTool } from "../utils/canvas-painter";
 
 var colorWheel: any;
 
@@ -30,7 +31,8 @@ function ColorWheel(props: Props) {
                     wheelReflectsSaturation: false,
 
                     onChange: function(color) {
-                        props.setColor(color.rgb)
+                        props.setColor([color.rgb[0], color.rgb[1], color.rgb[2]])
+                        setColor([color.rgb[0], color.rgb[1], color.rgb[2]])
                     }
                 }
             )
@@ -55,6 +57,7 @@ function ColorWheel(props: Props) {
                 } onClick={
                     () => {
                         props.setTool(props.tool() === "color-picker" ? "none" : "color-picker")
+                        setTool(props.tool())
                     }
                 }>
                     <img src={color_picker_icon} width="32px" height="32px"></img>

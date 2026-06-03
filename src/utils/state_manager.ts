@@ -1,20 +1,20 @@
 export var textureImage: ImageData
-export var headModel: ImageData
-export var humanoidModel: ImageData
-export var leggingsModel: ImageData
+export var headImage: ImageData
+export var humanoidImage: ImageData
+export var leggingsImage: ImageData
 
 export function setTextureCanvas(data: ImageData) {
     textureImage = data
 }
 
 export function setHeadCanvas(data: ImageData) {
-    headModel = data
+    headImage = data
 }
 
 export function setHumanoidCanvas(data: ImageData) {
-    humanoidModel = data
+    humanoidImage = data
 }
 
 export function setLeggingsCanvas(data: ImageData) {
-    leggingsModel = data
+    leggingsImage = data
 }

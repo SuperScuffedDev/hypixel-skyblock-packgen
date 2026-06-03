@@ -1,6 +1,6 @@
 import './App.css'
+import './Styles.css'
 import logo from "./assets/images/logo.png"
-import { createSignal } from "solid-js";
 
 function App(props: any) {
     return (
