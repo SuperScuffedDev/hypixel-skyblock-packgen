@@ -25,7 +25,7 @@ function ColorWheel(props: Props) {
                 {
                     appendTo: containerRef,
                     rgb: [255, 0, 0],
-                    wheelDiameter: 300,
+                    wheelDiameter: 250,
                     wheelThickness: 30,
                     handleDiameter: 24,
                     wheelReflectsSaturation: false,
@@ -48,7 +48,8 @@ function ColorWheel(props: Props) {
                 "display": "flex",
                 "width": "100%",
                 "height": "300px",
-                "background-color": "#ffffff",
+                "background-color": "#0e0046",
+                "border": "8px solid #6b6b6b",
                 "border-radius": "16px",
                 "margin-bottom": "10px"
             }

@@ -2,7 +2,7 @@ import * as THREE from "three";
 
 
 export function playerModel(scene: THREE.Scene){
-    const material = new THREE.MeshBasicMaterial( { color: 0x220022, wireframe: true  } );
+    const material = new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: true  } );
 
     function head() {
         const geometry = new THREE.BoxGeometry(2, 2, 2);

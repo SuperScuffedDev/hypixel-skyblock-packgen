@@ -29,7 +29,8 @@ function Editor() {
                     "height": "100%",
                     "padding": "16px",
                     "display": "flex",
-                    "flex-direction": "column"
+                    "flex-direction": "column",
+                    "background-color": "#040018"
                 }
             }>
                 <TexturePanel></TexturePanel>
@@ -44,7 +45,7 @@ function Editor() {
                     "display": "flex",
                     "justify-content": "center",
                     "align-items": "center",
-                    "background-color": "#dadada",
+                    "background-color": "#2d254f",
                     "width": "calc(100% - 1002px)",
                     "height": "100%",
                     "flex-grow": 1
@@ -79,7 +80,8 @@ function Editor() {
                     "flex-direction": "column",
                     "align-items": "center",
                     "overflow": "auto",
-                    "padding": "16px"
+                    "padding": "16px",
+                    "background-color": "#040018"
                 }
             }>
                 <EditorTools

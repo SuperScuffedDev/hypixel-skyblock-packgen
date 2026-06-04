@@ -60,8 +60,6 @@ function viewport() {
                         {
                             "width": "500px",
                             "height": "1000px",
-                            "border": "8px solid black",
-                            "border-radius": "32px",
                             "overflow": "hidden"
                         }
                     }>
@@ -82,7 +80,7 @@ function viewport() {
                             {
                                 "width": "1000px",
                                 "height": "500px",
-                                "border": "8px solid red",
+                                "border": "8px solid #6b6b6b",
                             }
                         } onMouseDown={
                             (e) => {
@@ -122,7 +120,7 @@ function viewport() {
                                 {    
                                     "width": "50px",
                                     "height": "50px",
-                                    "border": "2px solid black",
+                                    "border": "2px solid #6b6b6b",
                                     "border-radius": "16px",
                                     "display": "flex",
                                     "justify-content": "center",
@@ -143,7 +141,7 @@ function viewport() {
                                 {    
                                     "width": "50px",
                                     "height": "50px",
-                                    "border": "2px solid black",
+                                    "border": "2px solid #6b6b6b",
                                     "border-radius": "16px",
                                     "display": "flex",
                                     "justify-content": "center",
@@ -175,7 +173,7 @@ function viewport() {
                             {
                                 "width": "1000px",
                                 "height": "500px",
-                                "border": "8px solid red",
+                                "border": "8px solid #6b6b6b",
                             }
                         } onMouseDown={
                             (e) => {
@@ -215,7 +213,7 @@ function viewport() {
                                 {    
                                     "width": "50px",
                                     "height": "50px",
-                                    "border": "2px solid black",
+                                    "border": "2px solid #6b6b6b",
                                     "border-radius": "16px",
                                     "display": "flex",
                                     "justify-content": "center",
@@ -236,7 +234,7 @@ function viewport() {
                                 {    
                                     "width": "50px",
                                     "height": "50px",
-                                    "border": "2px solid black",
+                                    "border": "2px solid #6b6b6b",
                                     "border-radius": "16px",
                                     "display": "flex",
                                     "justify-content": "center",

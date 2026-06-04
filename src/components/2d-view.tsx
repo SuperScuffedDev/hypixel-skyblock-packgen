@@ -1,7 +1,7 @@
 import { onCleanup, onMount } from "solid-js"
 import { arrayIsEqual } from "../utils/Compare";
 import { colorWheel } from "./ColorWheel";
-import { humanoidImage, setHumanoidCanvas } from "../utils/state_manager";
+import { textureImage, setTextureCanvas } from "../utils/state_manager";
 
 var canvasRef!: HTMLCanvasElement;
 var ctx: CanvasRenderingContext2D;
@@ -18,8 +18,8 @@ function viewport(props: Props) {
         () => {
             ctx = canvasRef.getContext("2d") as CanvasRenderingContext2D;
             ctx.imageSmoothingEnabled = false
-            if (humanoidImage) {
-                ctx.putImageData(humanoidImage, 0,0)
+            if (textureImage) {
+                ctx.putImageData(textureImage, 0,0)
             }
         }
     );
@@ -30,14 +30,14 @@ function viewport(props: Props) {
         <>
             <div class="canvas-container" style={
                 {
-                    "background-color": "#dadada",
+                    "background-color": "#6b6b6b",
                     "display": "grid",
                     "place-items": "center",
-                    "width": "100%",
-                    "height": "100%"
+                    "width": "1000px",
+                    "height": "1000px"
                 }
             }>
-                <canvas class="canvas" width={64} height={32} ref={canvasRef} draggable={false} onMouseDown={
+                <canvas class="canvas" width={16} height={16} ref={canvasRef} draggable={false} onMouseDown={
                     (e) => {
                         switch (e.button) {
                             case 0:
@@ -209,7 +209,7 @@ function useTool(e: MouseEvent, props: Props) {
             break;
     }
 
-    setHumanoidCanvas(ctx.getImageData(0,0, canvasRef.width, canvasRef.height))
+    setTextureCanvas(ctx.getImageData(0,0, canvasRef.width, canvasRef.height))
 }
 
 export default viewport
