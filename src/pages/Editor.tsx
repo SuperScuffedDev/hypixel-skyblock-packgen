@@ -14,10 +14,22 @@ function Editor() {
 
     return (
         <>
-        <div id="editor">
+        <div id="editor" style={
+            {
+                "display": "flex",
+                "width": "100%",
+                "height": "calc(100vh - 83px)"
+            }
+        }>
             <div class="textures" style={
                 {
-                    "z-index": 2
+                    "z-index": 2,
+                    "flex": "1, 1",
+                    "width": "500px",
+                    "height": "100%",
+                    "padding": "16px",
+                    "display": "flex",
+                    "flex-direction": "column"
                 }
             }>
                 <TexturePanel></TexturePanel>
@@ -32,7 +44,10 @@ function Editor() {
                     "display": "flex",
                     "justify-content": "center",
                     "align-items": "center",
-                    "background-color": "#dadada"
+                    "background-color": "#dadada",
+                    "width": "calc(100% - 1002px)",
+                    "height": "100%",
+                    "flex-grow": 1
                 }
             }>
                 <Show when={viewport() == "2d"}>
@@ -56,7 +71,15 @@ function Editor() {
             }></span>
             <div class="tools" style={
                 {
-                    "z-index": 2
+                    "z-index": 2,
+                    "flex": "1, 1",
+                    "width": "500px",
+                    "height": "100%",
+                    "display": "flex",
+                    "flex-direction": "column",
+                    "align-items": "center",
+                    "overflow": "auto",
+                    "padding": "16px"
                 }
             }>
                 <EditorTools

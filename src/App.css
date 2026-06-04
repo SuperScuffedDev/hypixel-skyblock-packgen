@@ -1,9 +1,5 @@
 :root {
-    --main-ui-color: #ffffff;
-    --separator-color: #d6d6d6;
-
-    --ui-2-color: #d6d6d6;
-    --ui-button-color: #ffb7b7;
+    --separator-color: #ffffff;
 }
 
 * {
@@ -13,172 +9,7 @@
     padding: 0;
 }
 
-.header {
-    display: flex;
-    flex-direction: column;
-    background-color: var(--main-ui-color);
-    width: 100vw;
-    height: 82px;
-}
-
-.header > div {
-    display: flex;
-    width: 100%;
-    height: 81px;
-    padding: 16px;
-}
-
-#logo {
-    width: 300px;
-    height: 50px;
-}
-
-div.divider {
-    width: 100%;
-    height: 1px;
-    background-color: var(--separator-color);
-}
-
-span.divider {
-    width: 1px;
-    height: 100%;
-    background-color: var(--separator-color);
-}
-
-#editor {
-    display: flex;
-    width: 100%;
-    height: calc(100vh - 83px);
-}
-
-.viewport {
-    width: calc(100% - 1002px);
-    height: 100%;
-    flex-grow: 1;
-}
-
-.textures,
-.tools {
-    flex: 1, 1;
-    width: 500px;
-    height: 100%;
-    padding: 16px;
-}
-
-.tools {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    overflow: auto;
-    padding: 16px;
-}
-
-.editor-tool {
-    background-color: var(--ui-button-color);
-    width: 50%;
-    height: 48px;
-    margin-bottom: 16px;
-    border-radius: 16px;
-    border-width: 4px;
-    border-color: #000000;
-    border-style: solid;
-}
-.editor-tool > img {
-    height: 100%;
-}
-
-.textures {
-    display: flex;
-    flex-direction: column;
-}
-
-.listing-options {
-    display: flex;
-    justify-content: space-evenly;
-    gap: 8px;
-    width: 100%;
-    height: 50px;
-    margin-bottom: 8px;
-}
-
-.listing-options label {
-    text-align: center;
-    font-size: 24px;
-}
-
-#texture-catagory,
-#texture-sorting {
-    text-align: center;
-    font-size: 24px;
-    background-color: var(--ui-2-color);
-    flex: 1;
-    width: 100%;
-    height: 50px;
-    border-radius: 16px;
-}
-
-.texture-list {
-    background-color: var(--ui-2-color);
-    overflow: auto;
-    flex: 1;
-    border-radius: 16px;
-}
-
-.texture-options {
-    display: flex;
-    justify-content: space-evenly;
-    gap: 8px;
-    width: 100%;
-    height: 50px;
-    margin-bottom: 8px;
-}
-
-.texture-options > button {
-    padding: 8px;
-    border-radius: 8px;
-}
-
-#color-wheel {
-    display: flex;
-    width: 100%;
-    height: 300px;
-    background-color: var(--ui-2-color);
-    border-radius: 16px;
-    margin-bottom: 10px;
-}
-
-.color-configs {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    justify-content: space-around;
-    align-items: center;
-    width: 100%;
-    height: 300px;
-    padding-block: 50px;
-    padding-inline: 25px;
-    border-radius: 16px;
-}
-
-.color-configs > * {
-    flex-grow: 1;
-    width: 100%;
-    border-radius: 16px;
-}
-
-.color-configs > button > img {
-    height: 100%;
-}
-
-.canvas-container {
-    background-color: #dadada;
-    display: grid;
-    place-items: center;
-    width: 100%;
-    height: 100%;
-}
-
-#canvas {
+.canvas {
     background-color: transparent;
     background-image:
         linear-gradient(45deg, #ccc 25%, transparent 25%), 
@@ -200,7 +31,26 @@ span.divider {
     image-rendering: crisp-edges;
 }
 
-.listed-item {
+#model-grid {
+    display: grid;
+    grid-template-areas: 
+        "scene humanoid"
+        "scene leggings"
+    ;
+}
+
+.scene { grid-area: scene;}
+.humanoid { grid-area: humanoid;}
+.leggings { grid-area: leggings;}
+
+div.divider {
     width: 100%;
-    height: 40px;
+    height: 1px;
+    background-color: var(--separator-color);
+}
+
+span.divider {
+    width: 1px;
+    height: 100%;
+    background-color: var(--separator-color);
 }

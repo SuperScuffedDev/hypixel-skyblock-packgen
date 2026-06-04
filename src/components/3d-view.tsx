@@ -4,6 +4,8 @@ import { bootsModel, chestplateModel, headModel, leggingsModel, playerModel } fr
 import { headImage, humanoidImage, leggingsImage, setHumanoidCanvas, setLeggingsCanvas } from "../utils/state_manager";
 import * as THREE from "three";
 import { disableTool, mouseDown, mouseMove } from "../utils/canvas-painter";
+import dowload_icon from "../assets/images/download.svg";
+import upload_icon from "../assets/images/upload.svg";
 
 var scene: THREE.Scene
 
@@ -106,7 +108,10 @@ function viewport() {
                                 "height": "50px",
                                 "position": "absolute",
                                 "top": "8px",
-                                "right": "8px"
+                                "right": "8px",
+                                "display": "flex",
+                                "margin": "8px",
+                                "gap": "8px"
                             }
                         }>
                             <button classList={
@@ -118,13 +123,18 @@ function viewport() {
                                     "width": "50px",
                                     "height": "50px",
                                     "border": "2px solid black",
-                                    "border-radius": "16px"
+                                    "border-radius": "16px",
+                                    "display": "flex",
+                                    "justify-content": "center",
+                                    "align-items": "center"
                                 }
                             } onClick={
                                 () => {
                                     upload(scene, humanoidCanvasRef, ctxHumanoid, setHumanoidCanvas)
                                 }
-                            }>U</button>
+                            }>
+                                <img src={upload_icon} width="45px" height="45px"></img>
+                            </button>
                             <button classList={
                                 {
                                     "download": true,
@@ -134,13 +144,18 @@ function viewport() {
                                     "width": "50px",
                                     "height": "50px",
                                     "border": "2px solid black",
-                                    "border-radius": "16px"
+                                    "border-radius": "16px",
+                                    "display": "flex",
+                                    "justify-content": "center",
+                                    "align-items": "center"
                                 }
                             } onClick={
                                 () => {
                                     download(humanoidCanvasRef)
                                 }
-                            }>D</button>
+                            }>
+                                <img src={dowload_icon} width="45px" height="45px"></img>
+                            </button>
                         </div>
                         
                     </div>
@@ -182,11 +197,14 @@ function viewport() {
                         </canvas>
                         <div style={
                             {
-                                "width": "100px",
+                                "width": "108px",
                                 "height": "50px",
                                 "position": "absolute",
                                 "top": "8px",
-                                "right": "8px"
+                                "right": "8px",
+                                "display": "flex",
+                                "margin": "8px",
+                                "gap": "8px"
                             }
                         }>
                             <button classList={
@@ -198,13 +216,18 @@ function viewport() {
                                     "width": "50px",
                                     "height": "50px",
                                     "border": "2px solid black",
-                                    "border-radius": "16px"
+                                    "border-radius": "16px",
+                                    "display": "flex",
+                                    "justify-content": "center",
+                                    "align-items": "center"
                                 }
                             } onClick={
                                 () => {
                                     upload(scene, leggingsCanvasRef, ctxLeggings, setLeggingsCanvas)
                                 }
-                            }>U</button>
+                            }>
+                                <img src={upload_icon} width="45px" height="45px"></img>
+                            </button>
                             <button classList={
                                 {
                                     "download": true,
@@ -214,13 +237,18 @@ function viewport() {
                                     "width": "50px",
                                     "height": "50px",
                                     "border": "2px solid black",
-                                    "border-radius": "16px"
+                                    "border-radius": "16px",
+                                    "display": "flex",
+                                    "justify-content": "center",
+                                    "align-items": "center"
                                 }
                             } onClick={
                                 () => {
                                     download(leggingsCanvasRef)
                                 }
-                            }>D</button>
+                            }>
+                                <img src={dowload_icon} width="45px" height="45px"></img>
+                            </button>
                         </div>
                     </div>
                 </div>

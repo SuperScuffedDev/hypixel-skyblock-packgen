@@ -64,17 +64,56 @@ getItemData()
 function TexturePanel() {
     return (
         <>
-        <div class="listing-options">
-            <label for="texture-catagory">Catagory</label>
-            <select id="texture-catagory">
+        <div class="listing-options" style={
+            {
+                "display": "flex",
+                "justify-content": "space-evenly",
+                "gap": "8px",
+                "width": "100%",
+                "height": "50px",
+                "margin-bottom": "8px",
+            }
+        }>
+            <label for="texture-catagory" style={
+                {
+                    "text-align": "center",
+                    "font-size": "24px"
+                }
+            }>Catagory</label>
+            <select id="texture-catagory" style={
+                {
+                    "text-align": "center",
+                    "font-size": "24px",
+                    "background-color": "#ffffff",
+                    "flex": 1,
+                    "width": "100%",
+                    "height": "50px",
+                    "border-radius": "16px"
+                }
+            }>
                 <For each={categories}>
                     {(item) =>
                         <option value={item}>{item.replace("_", " ")}</option>
                     }
                 </For>
             </select>
-            <label for="texture-catagory">Sorting</label>
-            <select id="texture-sorting">
+            <label for="texture-sorting" style={
+                {
+                    "text-align": "center",
+                    "font-size": "24px"
+                }
+            }>Sorting</label>
+            <select id="texture-sorting" style={
+                {
+                    "text-align": "center",
+                    "font-size": "24px",
+                    "background-color": "#ffffff",
+                    "flex": 1,
+                    "width": "100%",
+                    "height": "50px",
+                    "border-radius": "16px"
+                }
+            }>
                 <option value="alphabet" selected>A-Z</option>
                 <option value="reverse">Z-A</option>
                 <option value="skill">SKILL</option>
@@ -83,7 +122,14 @@ function TexturePanel() {
                 <option value="notexture">NO TEXTURE</option>
             </select>
         </div>
-        <div class="texture-list">
+        <div class="texture-list" style={
+            {
+                "background-color": "#c2c2c2",
+                "overflow": "auto",
+                "flex": 1,
+                "border-radius": "16px"
+            }
+        }>
             <Suspense fallback={
                 <div>Loading Items...</div>
             }>
@@ -91,12 +137,26 @@ function TexturePanel() {
                     {(item) =>
                         <button classList={{
                             "listed-item": true
-                        }}>{item}</button>
+                        }} style={
+                            {
+                                "width": "100%",
+                                "height": "40px"
+                            }
+                        }>{item}</button>
                     }
                 </For>
             </Suspense>
         </div>
-        <div class="texture-options">
+        <div class="texture-options" style={
+            {
+                "display": "flex",
+                "justify-content": "space-evenly",
+                "gap": "8px",
+                "width": "100%",
+                "height": "50px",
+                "margin-bottom": "8px"
+            }
+        }>
         </div>
         </>
     )

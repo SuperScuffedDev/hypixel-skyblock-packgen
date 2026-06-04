@@ -68,7 +68,14 @@ function EditorTools(props: Props) {
                 }
             } style={
                 {
-                    "background-color": props.tool() === "brush" ? props.buttonActiveColor : props.buttonInactiveColor
+                    "background-color": props.tool() === "brush" ? props.buttonActiveColor : props.buttonInactiveColor,
+                    "width": "50%",
+                    "height": "48px",
+                    "margin-bottom": "16px",
+                    "border-radius": "16px",
+                    "border-width": "4px",
+                    "border-color": "#000000",
+                    "border-style": "solid"
                 }
             } onClick={
                 (e) => {
@@ -76,7 +83,11 @@ function EditorTools(props: Props) {
                     setTool(props.tool())
                 }
             }>
-                <img src={brush_icon} width="50px" height="50px"></img>
+                <img src={brush_icon} width="50px" height="50px" style={
+                    {
+                        "height": "100%"
+                    }
+                }></img>
             </button>
             <button classList={
                 {
@@ -85,7 +96,14 @@ function EditorTools(props: Props) {
                 }
             } style={
                 {
-                    "background-color": props.tool() === "erase" ? props.buttonActiveColor : props.buttonInactiveColor
+                    "background-color": props.tool() === "erase" ? props.buttonActiveColor : props.buttonInactiveColor,
+                    "width": "50%",
+                    "height": "48px",
+                    "margin-bottom": "16px",
+                    "border-radius": "16px",
+                    "border-width": "4px",
+                    "border-color": "#000000",
+                    "border-style": "solid"
                 }
             } onClick={
                 (e) => {
@@ -93,7 +111,11 @@ function EditorTools(props: Props) {
                     setTool(props.tool())
                 }
             }>
-                <img src={eraser_icon} width="50px" height="50px"></img>
+                <img src={eraser_icon} width="50px" height="50px" style={
+                    {
+                        "height": "100%"
+                    }
+                }></img>
             </button>
             <button classList={
                 {
@@ -102,7 +124,14 @@ function EditorTools(props: Props) {
                 }
             } style={
                 {
-                    "background-color": props.tool() === "fill" ? props.buttonActiveColor : props.buttonInactiveColor
+                    "background-color": props.tool() === "fill" ? props.buttonActiveColor : props.buttonInactiveColor,
+                    "width": "50%",
+                    "height": "48px",
+                    "margin-bottom": "16px",
+                    "border-radius": "16px",
+                    "border-width": "4px",
+                    "border-color": "#000000",
+                    "border-style": "solid"
                 }
             } onClick={
                 (e) => {
@@ -110,7 +139,11 @@ function EditorTools(props: Props) {
                     setTool(props.tool())
                 }
             }>
-                <img src={fill_icon} width="50px" height="50px"></img>
+                <img src={fill_icon} width="50px" height="50px" style={
+                    {
+                        "height": "100%"
+                    }
+                }></img>
             </button>
         </>
     )

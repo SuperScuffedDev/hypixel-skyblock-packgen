@@ -43,16 +43,44 @@ function ColorWheel(props: Props) {
     })
 
     return(
-        <div id="color-wheel" ref={containerRef}>
-            <div class="color-configs">
+        <div id="color-wheel" ref={containerRef} style={
+            {
+                "display": "flex",
+                "width": "100%",
+                "height": "300px",
+                "background-color": "#ffffff",
+                "border-radius": "16px",
+                "margin-bottom": "10px"
+            }
+        }>
+            <div class="color-configs" style={
+                {
+                    "display": "flex",
+                    "flex-direction": "column",
+                    "gap": "16px",
+                    "justify-content": "space-around",
+                    "align-items": "center",
+                    "width": "100%",
+                    "height": "300px",
+                    "padding-block": "50px",
+                    "padding-inline": "25px",
+                    "border-radius": "16px"
+                }
+            }>
                 <div class="current-color" style={
                     {
-                        "background-color": `rgb(${props.color()[0]},${props.color()[1]},${props.color()[2]})`
+                        "background-color": `rgb(${props.color()[0]},${props.color()[1]},${props.color()[2]})`,
+                        "flex-grow": 1,
+                        "width": "100%",
+                        "border-radius": "16px"
                     }
                 }></div>
                 <button class="color-picker" style={
                     {
-                        "background-color": props.tool() === "color-picker" ? props.buttonActiveColor : props.buttonInactiveColor
+                        "background-color": props.tool() === "color-picker" ? props.buttonActiveColor : props.buttonInactiveColor,
+                        "flex-grow": 1,
+                        "width": "100%",
+                        "border-radius": "16px"
                     }
                 } onClick={
                     () => {
@@ -60,9 +88,19 @@ function ColorWheel(props: Props) {
                         setTool(props.tool())
                     }
                 }>
-                    <img src={color_picker_icon} width="32px" height="32px"></img>
+                    <img src={color_picker_icon} width="32px" height="32px" style={
+                        {
+                            "height": "100%"
+                        }
+                    }></img>
                 </button>
-                <button></button>
+                <button style={
+                    {
+                        "flex-grow": 1,
+                        "width": "100%",
+                        "border-radius": "16px"
+                    }
+                }></button>
             </div>
         </div>
     )
