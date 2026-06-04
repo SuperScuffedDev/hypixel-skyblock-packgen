@@ -54,9 +54,9 @@ let categories = [
 ]
 
 var items = [
-    "a",
-    "b",
-    "c"
+    "Fermento Armor",
+    "Hyperion",
+    "Dark Claymore"
 ]
 
 getItemData()
@@ -77,18 +77,21 @@ function TexturePanel() {
             <label for="texture-catagory" style={
                 {
                     "text-align": "center",
-                    "font-size": "24px"
+                    "font-size": "24px",
+                    "color": "#ffffff",
                 }
             }>Catagory</label>
             <select id="texture-catagory" style={
                 {
                     "text-align": "center",
                     "font-size": "24px",
-                    "background-color": "#ffffff",
+                    "color": "#ffffff",
+                    "border": "1px solid #1d2d53",
+                    "border-radius": "16px",
+                    "background-color": "#111183",
                     "flex": 1,
                     "width": "100%",
                     "height": "50px",
-                    "border-radius": "16px"
                 }
             }>
                 <For each={categories}>
@@ -100,18 +103,21 @@ function TexturePanel() {
             <label for="texture-sorting" style={
                 {
                     "text-align": "center",
-                    "font-size": "24px"
+                    "font-size": "24px",
+                    "color": "#ffffff",
                 }
             }>Sorting</label>
             <select id="texture-sorting" style={
                 {
                     "text-align": "center",
                     "font-size": "24px",
-                    "background-color": "#ffffff",
+                    "color": "#ffffff",
+                    "border": "1px solid #1d2d53",
+                    "border-radius": "16px",
+                    "background-color": "#111183",
                     "flex": 1,
                     "width": "100%",
                     "height": "50px",
-                    "border-radius": "16px"
                 }
             }>
                 <option value="alphabet" selected>A-Z</option>
@@ -124,10 +130,11 @@ function TexturePanel() {
         </div>
         <div class="texture-list" style={
             {
-                "background-color": "#c2c2c2",
+                "background-color": "#030226",
+                "border": "1px solid #1d2d53",
+                "border-radius": "16px",
                 "overflow": "auto",
                 "flex": 1,
-                "border-radius": "16px"
             }
         }>
             <Suspense fallback={
@@ -140,7 +147,11 @@ function TexturePanel() {
                         }} style={
                             {
                                 "width": "100%",
-                                "height": "40px"
+                                "height": "40px",
+                                "color": "#ffffff",
+                                "font-size": "24px",
+                                "border": "1px solid #1d2d53",
+                                "background-color": "#111183",
                             }
                         }>{item}</button>
                     }
