@@ -1,6 +1,4 @@
-import { getItemData } from "../api/item-data"
 import { For, Suspense } from "solid-js"
-import { setHumanoidCanvas } from "../utils/state_manager";
 
 let categories = [
     "ALL",
@@ -58,8 +56,6 @@ var items = [
     "Hyperion",
     "Dark Claymore"
 ]
-
-getItemData()
 
 function TexturePanel() {
     return (

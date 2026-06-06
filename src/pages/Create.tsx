@@ -1,4 +1,12 @@
 function Packs() {
+    function packSubmit(e: SubmitEvent) {
+        e.preventDefault();
+        const form = e.currentTarget as HTMLFormElement
+        const formData = new FormData(form)
+        const data = Object.fromEntries(formData.entries())
+        console.log(data)
+    }
+
     return (
         <>
         <div style={
@@ -20,7 +28,7 @@ function Packs() {
                     "justify-content": "center"
                 }
             }>
-                <form style={
+                <form onSubmit={packSubmit} style={
                     {
                         "width": "50vw",
                         "height": "calc(100vh - 82px)",
@@ -102,7 +110,7 @@ function Packs() {
                             "margin-top": "100px"
                         }
                     }>
-                        <button style={
+                        <button type="button" style={
                             {
                                 "all": "unset",
                                 "width": "200px",
@@ -115,7 +123,7 @@ function Packs() {
                                 "background-color": "#030226"
                             }
                         }>Cancel</button>
-                        <button style={
+                        <button type="submit" style={
                             {
                                 "all": "unset",
                                 "width": "200px",
